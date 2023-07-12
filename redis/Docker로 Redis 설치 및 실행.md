@@ -1,3 +1,4 @@
+Window 환경에서 진행하였습니다. 
 # Docker란?
 
 - 경량화된 가상 환경인 컨테이너를 이용해 프로그램을 실행할 수 있는 기술
@@ -47,7 +48,6 @@ $ docker start my-redis
 ```
 
 # redis-cli 접속
-- Window 이용
 - redis-server: 레디스 서버
 - redis-cli: 레디스 서버에 커맨드를 실행할 수 있는 인터페이스
     - redis-cli를 실행하기 위해서 Docker Container 안에서 실행해야함.
