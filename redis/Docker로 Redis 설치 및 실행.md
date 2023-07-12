@@ -47,7 +47,7 @@ $ docker start my-redis
 ```
 
 # redis-cli 접속
-* Window 이용 *
+- Window 이용
 - redis-server: 레디스 서버
 - redis-cli: 레디스 서버에 커맨드를 실행할 수 있는 인터페이스
     - redis-cli를 실행하기 위해서 Docker Container 안에서 실행해야함.
