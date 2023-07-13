@@ -3,7 +3,8 @@
 - Lettuce: 가장 많이 사용되는 라이브러리, Spring Data Redis에 내장되어 있음.
 - Spring Data Redis는 Redis Template이라는 Redis 조작의 추상 레이어를 제공함.
 
-![Alt text](<제목 없는 다이어그램.drawio.png>)
+![제목 없는 다이어그램 drawio](https://github.com/suhjaesuk/til/assets/110963294/bdb8ae50-6844-411d-862b-53b7dd4c52bc)
+
 
 # 연동하기
 
