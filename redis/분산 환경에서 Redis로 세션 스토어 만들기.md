@@ -4,7 +4,8 @@
 - 연결된 일정 시간 동안 유지되는 정보를 나타냄
 - 적용 대상에 따라 다른 의미를 가짐
 
-![112.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/685b0e0d-693f-4b00-be4c-f99b4688c746/112.png)
+![112](https://github.com/suhjaesuk/til/assets/110963294/8f1831cf-591d-4a27-b48d-299b6e1e484b)
+
 
 ## 웹 로그인 세션
 
@@ -12,11 +13,13 @@
 - 브라우저는 쿠키, 서버는 해당 쿠키에 연관된 세션 정보를 저장
 - 유저가 로그아웃하거나 세션이 만료될 때 까지 유지되어 유저에 특정한 서비스 가능
 
-![121.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/70700f15-37b5-452d-8f84-2dd4ca30531d/121.png)
+![121](https://github.com/suhjaesuk/til/assets/110963294/f32b0f8d-fa2f-4cfb-88a1-6f4bb0a78879)
+
 
 ## Web 로그인 과정
 
-![333.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/40293e74-fa9f-4d17-875d-f09b15debbda/333.png)
+![333](https://github.com/suhjaesuk/til/assets/110963294/f7eeae65-71c5-4dc8-b145-d7a82253a2e3)
+
 
 # 분산 환경에서의 세션 처리
 
@@ -24,7 +27,8 @@
 - 서버가 여러 대라면 최초 로그인한 서버가 아닌 서버는 세션 정보를 알지 못함
 - 세션 정보를 서버간에 공유할 방법이 필요 (Session Clustering)
 
-![111111.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e8640da4-46b8-49ce-b023-a9c8aa35a227/111111.png)
+![111111](https://github.com/suhjaesuk/til/assets/110963294/c1c4a327-2a17-4f72-b590-a6b64dc10971)
+
 
 # 세션 스토어로서 Redis 사용
 
@@ -44,7 +48,8 @@
 - UUID로 세션 ID를 생성
 - JSESSIONID라는 이름의 쿠키를 설정해 내려줌
 
-![44444.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/958837d1-884d-460f-adb7-805ff5ea8c35/44444.png)
+![44444](https://github.com/suhjaesuk/til/assets/110963294/9b949ade-4b44-47f1-98d7-196632e9f872)
+
 
 # 실습
 
@@ -86,7 +91,8 @@ public class LoginController {
 saved
 ```
 
-![캡처.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6555d001-22d2-494c-bdf3-89adfa7d9319/%EC%BA%A1%EC%B2%98.png)
+![캡처](https://github.com/suhjaesuk/til/assets/110963294/6404c127-97ad-4456-9b6e-83c278c3388e)
+
 
 - 쿠키에 저장 된 이름 조회 API 호출 시 cookie에 담긴 값으로 데이터를 찾음
 
