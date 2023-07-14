@@ -124,7 +124,7 @@ import java.util.concurrent.TimeUnit;
 public class UserService {
     private final UserRepository userRepository;
     private final StringRedisTemplate redisTemplate;
-    private final String NAME_KEY = "nameKey: ";
+    private final String NAME_KEY = "nameKey::";
     public UserProfile getUserProfile(String userId) {
         String userName;
 
@@ -190,11 +190,25 @@ public class UserRepository {
     > http://localhost:8080/users/A/profile
     {"name":"Adam","age":28}
     ```
-
-![1초](https://github.com/suhjaesuk/til/assets/110963294/ee5beabe-417f-43c8-9dac-0fb0097ee43f)
+    
+![1초](https://github.com/suhjaesuk/til/assets/110963294/ef4f63a4-a839-449e-8769-950b45c99c92)
 
     
     name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
+    
+    ```java
+    127.0.0.1:6379>  keys *
+    1) "nameKey::A"
+    ```
+    
+    redis를 확인해보면 A 유저가 저장됨
+    
+    ```java
+    127.0.0.1:6379> GET "nameKey::A"
+    "Adam"
+    ```
+    
+    A 유저의 name을 조회하면 Adam이 값으로 저장됨
     
 2. 캐시를 사용할 때 API 호출 시
     
@@ -203,20 +217,28 @@ public class UserRepository {
     {"name":"Adam","age":28}
     ```
     
-![0 5ch](https://github.com/suhjaesuk/til/assets/110963294/d86ed092-bcda-48c9-bd47-75a117643e1b)
+![0 5ch](https://github.com/suhjaesuk/til/assets/110963294/8352edfb-b034-4ca5-acd1-253cf7713e33)
 
     
     name은 redis에서 가져오고 age만 repository에서 가져오기 때문에 0.5초가 걸림
     
-- 캐시에 저장되고 10초 후(만료되고) API 호출 시
+- 캐시에 저장되고 만료 후
+    
+    ```java
+    127.0.0.1:6379>  keys *
+    (empty array)
+    ```
+    
+    redis에 A 유저의 캐시가 저장되어 있지 않음
+    
+    API 호출 시 
     
     ```java
     > http://localhost:8080/users/A/profile
     {"name":"Adam","age":28}
     ```
     
-![1초](https://github.com/suhjaesuk/til/assets/110963294/66158e6f-5152-4994-8fc4-edc9cff73235)
+![1초](https://github.com/suhjaesuk/til/assets/110963294/5438cda3-3af9-4a17-a542-61c04be25384)
 
     
     1번과 똑같음. name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
-    
