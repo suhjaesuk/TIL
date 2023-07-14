@@ -211,3 +211,4 @@ public class UserRepository {
     ![1초.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/447c62d7-1d5e-439d-94a1-0e72947780c9/1%EC%B4%88.png)
     
     1번과 똑같음. name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
+    
