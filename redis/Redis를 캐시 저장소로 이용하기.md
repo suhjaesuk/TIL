@@ -4,11 +4,13 @@
 - 캐시에 복사본을 저장해놓고 읽음으로서 속도가 느린 장치로의 접근 횟수를 줄임
 - 캐시의 데이터는 원본이 아니며 언제든 사라질 수 있음
 
-![111.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9a8b1da0-2f08-42ec-89b8-33832ae602a7/111.png)
+![111](https://github.com/suhjaesuk/til/assets/110963294/9cc853d5-7bca-4959-b143-2f59e97d63a5)
+
 
 # 적용
 
-![222.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/305555ae-5d4f-4fda-a018-062052a273df/222.png)
+![222](https://github.com/suhjaesuk/til/assets/110963294/f4919b79-407b-45cd-a067-c77f8f24843a)
+
 
 # 용어
 
@@ -27,7 +29,8 @@
 - 장점: 필요한 데이터만 캐시에 저장되고, Cache Miss가 있어도 치명적이지 않음
 - 단점: 최초 접근이 느림, 업데이트 주기가 일정하지 않기 때문에 캐시가 최신 데이터가 아닐 수 있음
 
-![444.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/72357033-58ae-485d-9d5c-3e04c8ab5e34/444.png)
+![444](https://github.com/suhjaesuk/til/assets/110963294/68ee66c1-a721-4dce-abef-963dcff3fd38)
+
 
 ### Write-Through
 
@@ -35,7 +38,8 @@
 - 장점: 캐시가 항상 동기화되어 있어 데이터가 최신 상태
 - 단점: 자주 사용하지 않는 데이터도 캐시됨, 쓰기 지연 시간이 증가
 
-![5555.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9afed226-d77c-42db-a0d8-d0d7c2924e03/5555.png)
+![5555](https://github.com/suhjaesuk/til/assets/110963294/3db9f1fe-a590-42d2-9e67-402dbbf124f4)
+
 
 ### Write-Back
 
@@ -44,7 +48,8 @@
 - 장점: 쓰기가 많은 경우 DB 부하를 줄일 수 있음
 - 단점: 캐시가 DB에 쓰기 전에 장애가 생기면 데이터 유실 가능
 
-![666.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/89125556-8517-4f2c-8d32-37c2e814d12f/666.png)
+![666](https://github.com/suhjaesuk/til/assets/110963294/dc899bdb-86c1-4ac8-85e4-64e5efff813b)
+
 
 ## 삭제 방식
 
@@ -185,8 +190,9 @@ public class UserRepository {
     > http://localhost:8080/users/A/profile
     {"name":"Adam","age":28}
     ```
-    
-    ![1초.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/447c62d7-1d5e-439d-94a1-0e72947780c9/1%EC%B4%88.png)
+
+![1초](https://github.com/suhjaesuk/til/assets/110963294/ee5beabe-417f-43c8-9dac-0fb0097ee43f)
+
     
     name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
     
@@ -197,7 +203,8 @@ public class UserRepository {
     {"name":"Adam","age":28}
     ```
     
-    ![0.5ch.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de444bed-738c-4d33-8449-e984582a7b10/0.5ch.png)
+![0 5ch](https://github.com/suhjaesuk/til/assets/110963294/d86ed092-bcda-48c9-bd47-75a117643e1b)
+
     
     name은 redis에서 가져오고 age만 repository에서 가져오기 때문에 0.5초가 걸림
     
@@ -208,7 +215,8 @@ public class UserRepository {
     {"name":"Adam","age":28}
     ```
     
-    ![1초.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/447c62d7-1d5e-439d-94a1-0e72947780c9/1%EC%B4%88.png)
+![1초](https://github.com/suhjaesuk/til/assets/110963294/66158e6f-5152-4994-8fc4-edc9cff73235)
+
     
     1번과 똑같음. name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
     
