@@ -242,3 +242,188 @@ API 호출 시
 
 
 1번과 똑같음. name과 age를 모두 repository에서 가져오기 때문에 1초가 걸림
+
+# Spring의 캐시 추상화
+
+- CacheManager를 통해 일반적인 캐시 인터페이스 구현 (다양한 캐시 구현체가 존재)
+- 메소드에 Annotation을 이용해 캐시를 손쉽게 적용 가능
+
+| Annotation | 설명 |
+| --- | --- |
+| @Cacheable | 메소드에 캐시를 적용한다. (Cache-Aside 패턴) |
+| @CachePut | 메소드의 리턴값을 캐시에 설정한다. |
+| @CacheEvict | 메소드의 키값(파라미터)을 기반으로 캐시를 삭제한다. |
+
+# 실습
+
+- build.gradle에 redis 의존 추가 (캐시 저장소로 redis 사용)
+
+```
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+}
+```
+
+- application.yml에 캐시 타입 redis로 설정
+
+```yaml
+spring:
+  cache:
+    type:
+      redis
+  *redis:
+    host: localhost
+    port: 6379*
+```
+
+- 메인 클래스에 캐시를 사용한다는 `@EnableCaching` 추가
+
+```java
+@SpringBootApplication
+@EnableCaching
+public class RedisApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RedisApplication.class, args);
+    }
+
+}
+```
+
+앞에선 이름을 캐싱했다. 이번엔 나이를 캐싱해보자.
+
+- 메소드에 `@Cacheable`을 추가한다.
+    - `cacheNames`, `key` 속성을 이용해 캐시 이름과 키를 지정할 수 있다.
+
+```java
+@Service
+public class UserRepository {
+
+    public String findNameById(String userId) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e){
+        }
+        if (userId.equals("A")) {
+            return "Adam";
+        }
+        if (userId.equals("B")) {
+            return "Bob";
+        }
+        return null;
+    }
+
+    @Cacheable(cacheNames = "ageKey", key = "#userId")
+    public int findAgeById(String userId) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e){
+        }
+        if (userId.equals("A")) {
+            return 28;
+        }
+        if (userId.equals("B")) {
+            return 27;
+        }
+        return 0;
+    }
+}
+```
+
+- API 호출 후 redis를 확인
+
+```java
+> http://localhost:8080/users/A/profile
+{"name":"Adam","age":28}
+```
+
+```bash
+127.0.0.1:6379> keys *
+1) "ageKey::A"
+2) "nameKey::A"
+```
+
+- ageKey값 조회
+
+```bash
+127.0.0.1:6379> GET "ageKey::A"
+"\xac\xed\x00\x05sr\x00\x11java.lang.Integer\x12\xe2\xa0\xa4\xf7\x81\x878\x02\x0
+0\x01I\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x0
+2\x00\x00xp\x00\x00\x00\x1c" 
+
+```
+
+지금 상태로는 TTL 설정을 하지 못하는데, TTL 설정이 필요할 경우 설정 클래스를 만들어야 한다. 이 설정 클래스에선 기본 설정과 별도 설정이 가능하다.
+
+기본 설정은 30일간 캐싱이 되고, 별도로 “ageKey”라는 캐시이름을 가진 메서드만 30초만 캐싱 되게끔 설정하겠다.
+
+```java
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.CacheKeyPrefix;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+@Configuration
+public class RedisCacheConfig {
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+				// Default 설정
+        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
+                .disableCachingNullValues()
+                .entryTtl(Duration.ofDays(30)) // 30일간 저장
+                .computePrefixWith(CacheKeyPrefix.simple())
+                .serializeKeysWith(RedisSerializationContext
+                        .SerializationPair
+                        .fromSerializer(new StringRedisSerializer()));
+
+        // 별도의 cache TTL 지정
+        Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
+        cacheConfigurations.put("ageKey",
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ofSeconds(10))); //10초간 저장
+
+        return RedisCacheManager.RedisCacheManagerBuilder
+                .fromConnectionFactory(connectionFactory)
+                .cacheDefaults(configuration)
+                .withInitialCacheConfigurations(cacheConfigurations).build();
+    }
+}
+```
+
+- 모든 캐시를 지운 후 API 호출
+
+```java
+127.0.0.1:6379> flushall
+OK
+```
+
+```java
+> http://localhost:8080/users/A/profile
+{"name":"Adam","age":28}
+```
+
+- ageKey값 조회
+
+```bash
+127.0.0.1:6379> GET "ageKey::A"
+"\xac\xed\x00\x05sr\x00\x11java.lang.Integer\x12\xe2\xa0\xa4\xf7\x81\x878\x02\x0
+0\x01I\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x0
+2\x00\x00xp\x00\x00\x00\x1c" 
+
+```
+
+- 30초 뒤 ageKey 값 조회
+
+```bash
+127.0.0.1:6379> GET "ageKey::A"
+(nil)
+```
