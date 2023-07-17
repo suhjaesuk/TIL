@@ -3,7 +3,8 @@
 - 메시징 모델 중의 하나로 발행(Publish)과 구독(Subscribe) 역할로 개념화한 형태
 - 발행자와 구독자는 서로에 대한 정보 없이 특정 주제(토픽 or 채널)를 매개로 송수신
 
-![1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/58d8e7c3-3fb4-4630-aa78-a831e3abd0e9/1.png)
+![1](https://github.com/suhjaesuk/til/assets/110963294/9a1f65f7-af32-4b9c-9c9e-7109f17178dc)
+
 
 # 메시징 미들웨어 사용의 장점
 
@@ -30,13 +31,15 @@
 - 채팅 클라이언트와 채팅 서버가 존재하고 통신 방식을 정해야 함.
 - 채팅 서버는 채팅방 관리 로직을 작성해야 함
 
-![3.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ebe78aa5-647f-4e7f-a93d-c6573462238a/3.png)
+![3](https://github.com/suhjaesuk/til/assets/110963294/dcd585a1-d121-4cfd-a296-3d1cc7d48903)
+
 
 ## Redis Pub/Sub을 이용한 채팅방 구현
 
 - 채팅방 기능을 Pub/Sub 구조를 이용해 쉽게 구현 가능
 
-![5.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/73e03bd5-6529-4cc1-9883-ef583f389ad2/5.png)
+![5](https://github.com/suhjaesuk/til/assets/110963294/bf4cc637-b80b-4aae-ba70-be5fdf124ba6)
+
 
 # 실습
 
