@@ -184,7 +184,7 @@ public class UserRepository {
 }
 ```
 
-1. 캐시를 사용안할 때 API 호출 시
+**캐시를 사용안할 때 API 호출 시**
     
 ```java
 > http://localhost:8080/users/A/profile
@@ -210,7 +210,7 @@ redis를 확인해보면 A 유저가 저장됨
 
 A 유저의 name을 조회하면 Adam이 값으로 저장됨
 
-2. 캐시를 사용할 때 API 호출 시
+**캐시를 사용할 때 API 호출 시**
 
 ```java
 > http://localhost:8080/users/A/profile
@@ -222,7 +222,7 @@ A 유저의 name을 조회하면 Adam이 값으로 저장됨
 
 name은 redis에서 가져오고 age만 repository에서 가져오기 때문에 0.5초가 걸림
 
-- 캐시에 저장되고 만료 후
+**캐시에 저장되고 만료 후**
 
 ```java
 127.0.0.1:6379>  keys *
@@ -231,7 +231,7 @@ name은 redis에서 가져오고 age만 repository에서 가져오기 때문에 
 
 redis에 A 유저의 캐시가 저장되어 있지 않음
 
-API 호출 시 
+**API 호출 시**
 
 ```java
 > http://localhost:8080/users/A/profile
@@ -256,7 +256,7 @@ API 호출 시
 
 # 실습
 
-- build.gradle에 redis 의존 추가 (캐시 저장소로 redis 사용)
+**build.gradle에 redis 의존 추가 (캐시 저장소로 redis 사용)**
 
 ```
 dependencies {
@@ -264,7 +264,7 @@ dependencies {
 }
 ```
 
-- application.yml에 캐시 타입 redis로 설정
+**application.yml에 캐시 타입 redis로 설정**
 
 ```yaml
 spring:
@@ -276,7 +276,7 @@ spring:
     port: 6379*
 ```
 
-- 메인 클래스에 캐시를 사용한다는 `@EnableCaching` 추가
+**Main Class에 캐시를 사용한다는 `@EnableCaching` 추가**
 
 ```java
 @SpringBootApplication
@@ -292,8 +292,8 @@ public class RedisApplication {
 
 앞에선 이름을 캐싱했다. 이번엔 나이를 캐싱해보자.
 
-- 메소드에 `@Cacheable`을 추가한다.
-    - `cacheNames`, `key` 속성을 이용해 캐시 이름과 키를 지정할 수 있다.
+**메소드에 `@Cacheable`을 추가**
+- `cacheNames`, `key` 속성을 이용해 캐시 이름과 키를 지정할 수 있다.
 
 ```java
 @Service
@@ -330,7 +330,7 @@ public class UserRepository {
 }
 ```
 
-- API 호출 후 redis를 확인
+**API 호출 후 redis 확인**
 
 ```java
 > http://localhost:8080/users/A/profile
@@ -343,7 +343,7 @@ public class UserRepository {
 2) "nameKey::A"
 ```
 
-- ageKey값 조회
+**ageKey값 조회**
 
 ```bash
 127.0.0.1:6379> GET "ageKey::A"
@@ -399,7 +399,7 @@ public class RedisCacheConfig {
 }
 ```
 
-- 모든 캐시를 지운 후 API 호출
+**모든 캐시를 지운 후 API 호출**
 
 ```java
 127.0.0.1:6379> flushall
@@ -411,7 +411,7 @@ OK
 {"name":"Adam","age":28}
 ```
 
-- ageKey값 조회
+**ageKey값 조회**
 
 ```bash
 127.0.0.1:6379> GET "ageKey::A"
@@ -421,7 +421,7 @@ OK
 
 ```
 
-- 30초 뒤 ageKey 값 조회
+**30초 뒤 ageKey 값 조회**
 
 ```bash
 127.0.0.1:6379> GET "ageKey::A"
