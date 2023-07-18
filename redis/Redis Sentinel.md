@@ -8,7 +8,8 @@
     - 자동 장애 복구
     - 환경 설정 제공자
 
-![1111.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be23b821-fa68-4be6-a572-e82312616ed3/1111.png)
+![1111](https://github.com/suhjaesuk/til/assets/110963294/a74ecf92-f817-4325-9e71-a1291139c00a)
+
 
 # Redis Sentinel 구상도
 
@@ -17,7 +18,8 @@
 - Sentinel들은 Master와 Replica를 모니터링
 - Client는 Sentinel을 통해 Redis에 접근
 
-![2222.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7973ffe4-2ec9-4920-a2d9-84393dde3144/2222.png)
+![2222](https://github.com/suhjaesuk/til/assets/110963294/9023c3b8-6202-4142-8d41-f3a3bf1906ab)
+
 
 # Sentinel의 특징
 
