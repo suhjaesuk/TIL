@@ -5,7 +5,8 @@
 - master가 죽었을 경우 replica 중 하나를 master로 전환해 즉시 서비스 정상화 가능
 - 복제본(replica)는 read-only 노드로 사용 가능하므로 traffic 분산도 가능
 
-![1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/25f2b951-85ac-466e-9a81-1173f61f1603/1.png)
+![1](https://github.com/suhjaesuk/til/assets/110963294/56da0225-1c3c-4116-9141-3cbd49e008a3)
+
 
 # Redis Replication 사용
 
