@@ -229,7 +229,7 @@ $ docker inspect redis-master
 $ docker stop redis-master
 ```
 
-2. Quorom 수가 정족수가 차면 ODOWN 실행
+2. Quorom 정족수가 차면 ODOWN 실행
 
 ```powershell
 redis-sentinel-2  | 1:X 18 Jul 2023 07:44:16.500 # +sdown master master-name 192.168.144.2 6379
