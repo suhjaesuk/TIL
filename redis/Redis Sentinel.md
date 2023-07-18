@@ -229,7 +229,7 @@ $ docker inspect redis-master
 $ docker stop redis-master
 ```
 
-1. Quorom 수가 정족수가 차면 ODOWN 실행
+2. Quorom 수가 정족수가 차면 ODOWN 실행
 
 ```powershell
 redis-sentinel-2  | 1:X 18 Jul 2023 07:44:16.500 # +sdown master master-name 192.168.144.2 6379
@@ -238,13 +238,13 @@ redis-sentinel-1  | 1:X 18 Jul 2023 07:44:16.543 # +sdown master master-name 192
 redis-sentinel-3  | 1:X 18 Jul 2023 07:44:16.599 # +odown master master-name 192.168.144.2 6379 #quorum 2/2
 ```
 
-1. redis-slave-1이 Master로 승격
+3. redis-slave-1이 Master로 승격
 
 ```powershell
 redis-slave-1     | 1:M 18 Jul 2023 07:55:50.521 * MASTER MODE enabled (user request from 'id=4 addr=192.168.176.5:39727 laddr=192.168.176.3:6379 fd=8 name=sentinel-451a2fa0-cmd age=21 idle=0 flags=x db=0 sub=0 psub=0 multi=4 qbuf=6052 qbuf-free=34902 argv-mem=4 obl=13839 oll=0 omem=0 tot-mem=61468 events=r cmd=exec user=default redir=-1')
 ```
 
-1. redis-slave-2가 redis-slave-1을 Master로 인식
+4. redis-slave-2가 redis-slave-1을 Master로 인식
 
 ```powershell
 redis-slave-2     | 1:S 18 Jul 2023 07:55:50.743 * REPLICAOF 192.168.176.3:6379 enabled (user request from 'id=10 addr=192.168.176.5:48901 laddr=192.168.176.4:6379 fd=9 name=sentinel-451a2fa0-cmd age=0 idle=0 flags=x db=0 sub=0 psub=0 multi=4 qbuf=7624 qbuf-free=33330 argv-mem=4 obl=13714 oll=10 omem=205040 tot-mem=266508 events=r cmd=exec user=default redir=-1')
@@ -257,34 +257,34 @@ redis-slave-2     | 1:S 18 Jul 2023 07:55:50.750 # Master replication ID changed
 redis-slave-2     | 1:S 18 Jul 2023 07:55:50.750 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
 ```
 
-1. redis-slave-1에서 쓰기 작업 시 정상
+5. redis-slave-1에서 쓰기 작업 시 정상
 
 ```powershell
 127.0.0.1:6379> set a a
 OK
 ```
 
-1. redis-slave-2에서 쓰기 작업 시 오류
+6. redis-slave-2에서 쓰기 작업 시 오류
 
 ```powershell
 127.0.0.1:6379> set a a
 (error) READONLY You can't write against a read only replica.
 ```
 
-1. redis-slave-2에서 모든 key 조회
+7. redis-slave-2에서 모든 key 조회
 
 ```powershell
 127.0.0.1:6379> keys *
 1) "a"
 ```
 
-1. redis-master 재실행 
+8. redis-master 재실행 
 
 ```powershell
 docker start redis-master
 ```
 
-1. redis-master 쓰기 작업 시 오류
+9. redis-master 쓰기 작업 시 오류
 
 ```powershell
 127.0.0.1:6379> set b b
