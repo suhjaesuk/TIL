@@ -14,7 +14,8 @@
 - multi key 명령어가 제한됨
 - 클라이언트는 모든 노드에 접속
     
-    ![11.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f06b9a97-02c8-4993-8679-535df2370c8e/11.png)
+![11](https://github.com/suhjaesuk/til/assets/110963294/cf19048b-1df1-4129-9851-b5ec08e295b6)
+
     
 
 # Sentinel과의 차이점
@@ -59,7 +60,8 @@
 - 높은 성능을 위해 비동기 복제를 하기 때문
     - 성능을 위해 일관성을 희생
 
-![223.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f61298b1-a4f1-4195-bf15-88baf3674143/223.png)
+![223](https://github.com/suhjaesuk/til/assets/110963294/5fdd8a6d-0e41-4372-bff3-9d1863154ac0)
+
 
 # 클러스터의 가용성
 
