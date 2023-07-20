@@ -9,13 +9,15 @@
 
 - 모든 기능들이 한 서버 안에 들어가 있고, 공유 데이터베이스를 사용
 
-![222.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/164f95cc-d854-4fc7-bc17-9ad559e645c7/222.png)
+![222](https://github.com/suhjaesuk/til/assets/110963294/88f93d19-2423-45c5-8678-94ce4973f295)
+
 
 ## MSA 아키텍처
 
 - 기능 별로(도메인 별로) 서버가 나뉘어 있고, 각자의 데이터 베이스를 사용하며, API를 이용해 통신
 
-![111.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea9d3220-ed9a-48a2-b4fd-4bb063ebf4c6/111.png)
+![111](https://github.com/suhjaesuk/til/assets/110963294/69fa6154-f9de-4d3f-a892-7e3f538705a7)
+
 
 ## MSA로 얻을 수 있는 것
 
@@ -47,19 +49,21 @@
 
 - 각 서버들은 Event Broker에 이벤트를 생산/소비함으로써 통신
 
-![333.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2c48423c-3528-4d72-aa55-63b7be7de1e2/333.png)
+![333](https://github.com/suhjaesuk/til/assets/110963294/4553b70e-6e48-4328-ae35-3132ece253cf)
 
 ## HTTP를 이용한 동기 통신 방식
 
 - 각 서비스는 필요한 서비스를 직접 호출
 
-![444.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/21d95245-6ca4-4a47-8b21-269e7190dd97/444.png)
+![444](https://github.com/suhjaesuk/til/assets/110963294/9098140a-5f6e-4b40-b137-630599fce3a9)
+
 
 ## Event-broker를 이용한 메시지 기반 통신
 
 - 각 서비스는 미리 정의된 이벤트를 소비/생성함으로써 통신
 
-![666.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/31120120-204d-4396-9bdd-c1459434adca/666.png)
+![666](https://github.com/suhjaesuk/til/assets/110963294/d8764d80-e9d0-4255-9c0f-d7842d7c01c7)
+
 
 ## Event-Driven로 얻을 수 있는 것
 
